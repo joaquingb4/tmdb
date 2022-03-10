@@ -51,7 +51,6 @@ public class SearchMovieRecyclerViewAdapter extends RecyclerView.Adapter<SearchM
                     .centerCrop()
                     .into(holder.imgMovie);
 
-
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,8 +68,6 @@ public class SearchMovieRecyclerViewAdapter extends RecyclerView.Adapter<SearchM
 
             }
         });
-
-
     }
 
     @Override
@@ -90,7 +87,5 @@ public class SearchMovieRecyclerViewAdapter extends RecyclerView.Adapter<SearchM
             titleMovie = itemView.findViewById(R.id.titleMovie);
             cardview = itemView.findViewById(R.id.cardview);
         }
-
     }
 }
-
