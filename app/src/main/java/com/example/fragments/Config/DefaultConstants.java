@@ -15,20 +15,18 @@ public class DefaultConstants {
                             .baseUrl("https://api.themoviedb.org/3/")
                             .addConverterFactory(GsonConverterFactory.create())
                             .build();
-
     //TOKEN
-    /**eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNjAwZTY2MDViNzhjM
+    /*
+      eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNjAwZTY2MDViNzhjM
       WUwODQ2ZWNkNGQ1N2U0MGFlOSIsInN1YiI6IjYyMWY5M2U0OTA
       yMDEyMDA0M2I4YjAwMSIsInNjb3BlcyI6WyJhcGlf
       cmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4Wzpi5sQNuJfUKytpAjbW
       1KnRn6QQNZDuTuNze9MB0o
-     */
+    */
         //Token request
     /*cbe62a471984457d40c018a17cb445986d3703c6*/
 
     //73c6958f499f8dec1e032f72d62ee4462c1265d9
     //https://www.themoviedb.org/authenticate/73c6958f499f8dec1e032f72d62ee4462c1265d9
         //sesionId : bf49e752495a327e2f4ad9b555edadacc307da6d
-
-
 }
