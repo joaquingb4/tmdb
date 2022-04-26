@@ -35,7 +35,7 @@ public class ListFragment extends Fragment {
     public ListFragment() {
         // Required empty public constructor
     }
-
+    //INICIO
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,10 +51,11 @@ public class ListFragment extends Fragment {
             }
         });
         //____
+
         ApiCall apiCall = retrofit.create(ApiCall.class);
         Call<FavFilmRequest> call = apiCall.getFavoritesMovies(API_KEY, SESSION_ID);
 
-        call.enqueue(new Callback<FavFilmRequest>(){
+        /*call.enqueue(new Callback<FavFilmRequest>(){
             @Override
             public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
                 //<<<<<<<<<<<<<<<<<<<ESTOY AQUÍ>>>>>>>>>>>>>>>>>>>>>>
@@ -81,8 +82,11 @@ public class ListFragment extends Fragment {
 
                 }
             });
+
+         */
         return view;
     }
+
         //____
 
 

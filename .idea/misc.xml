@@ -40,7 +40,14 @@
         <entry key="..\:/Users/marta/AndroidStudioProjects/Fragments/app/src/main/res/layout/fragment_list.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/marta/AndroidStudioProjects/Fragments/app/src/main/res/menu/bottom_nav_menu.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/marta/AndroidStudioProjects/Fragments/app/src/main/res/menu/bottom_navigation.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/form_add_list.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/form_movie_to_list.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_movies_list.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/item_movie.xml" value="0.2814814814814815" />
       </map>
     </option>
   </component>

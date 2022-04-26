@@ -1,6 +1,9 @@
 package com.example.fragments;
 
+import static com.example.fragments.Config.DefaultConstants.API_KEY;
 import static com.example.fragments.Config.DefaultConstants.BASE_IMG_URL;
+import static com.example.fragments.Config.DefaultConstants.SESSION_ID;
+import static com.example.fragments.Config.DefaultConstants.retrofit;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,21 +14,27 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.fragments.Config.ApiCall;
 import com.example.fragments.Config.GlideApp;
-import com.example.fragments.Config.GlideModuleApp;
+import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.List.List;
 import com.example.fragments.Recyclers.AddMovieListsRecyclerViewAdapter;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class DetailFragment extends Fragment {
@@ -57,12 +66,39 @@ public class DetailFragment extends Fragment {
                 .load(BASE_IMG_URL + film.getPoster_path())
                 .centerCrop()
                 .into(imgDetail);
-
+        //FAVORITOS AQUÍ
         btnFav.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 btnFav.setImageResource(R.drawable.ic_fav_on);
-            }
+                //_____
+                //String query = txtSearch.getText().toString();
+                //Log.i("asd", query);
+                //if(!query.equals("")){
+                    ApiCall apiCall = retrofit.create(ApiCall.class);
+                    Call<FavFilmRequest> call = apiCall.uptadeFavoriteStatus("application/json;charset=utf-8",API_KEY,SESSION_ID,
+                            new FavFilmRequest("movie", film.getId(), true));
+
+                    call.enqueue(new Callback<FavFilmRequest>(){
+                        @Override
+                        public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
+                            if(response.code()!=200){
+                                Log.i("testApi", "checkConnection "+response.code()+" : "+film.getId());
+                                return;
+                            }else {
+                                Log.i("testApi", "Change Succesfull");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<FavFilmRequest> call, Throwable t) {
+
+                        }
+                    });
+                }
+                //-------------
+
         });
 
         btnAddtoList.setOnClickListener(new View.OnClickListener() {
