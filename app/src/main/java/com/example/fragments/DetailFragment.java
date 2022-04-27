@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fragments.Config.ApiCall;
+import com.example.fragments.Config.DefaultConstants;
 import com.example.fragments.Config.GlideApp;
 import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.Film;
@@ -34,7 +35,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class DetailFragment extends Fragment {
@@ -73,18 +73,20 @@ public class DetailFragment extends Fragment {
             public void onClick(View view) {
                 btnFav.setImageResource(R.drawable.ic_fav_on);
                 //_____
-                //String query = txtSearch.getText().toString();
-                //Log.i("asd", query);
-                //if(!query.equals("")){
+                    FavFilmRequest favFilmRequest = new FavFilmRequest("movie", film.getId(), true);
                     ApiCall apiCall = retrofit.create(ApiCall.class);
-                    Call<FavFilmRequest> call = apiCall.uptadeFavoriteStatus("application/json;charset=utf-8",API_KEY,SESSION_ID,
-                            new FavFilmRequest("movie", film.getId(), true));
+                    Call<FavFilmRequest> call = apiCall.uptadeFavoriteStatus(
+                            DefaultConstants.ACCOUNT_ID
+                            ,"application/json;charset=utf-8"
+                            ,API_KEY,SESSION_ID
+                            , favFilmRequest);
 
                     call.enqueue(new Callback<FavFilmRequest>(){
                         @Override
                         public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
-                            if(response.code()!=200){
-                                Log.i("testApi", "checkConnection "+response.code()+" : "+film.getId());
+                            if(response.code()!=201){
+                                Log.i("testApi", response
+                                        +"checkConnection "+response.code()+" : "+film.getId());
                                 return;
                             }else {
                                 Log.i("testApi", "Change Succesfull");
@@ -93,6 +95,7 @@ public class DetailFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<FavFilmRequest> call, Throwable t) {
+                            Log.i("testApi", "FALLO");
 
                         }
                     });

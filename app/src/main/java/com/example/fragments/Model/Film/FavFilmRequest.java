@@ -1,29 +1,17 @@
 package com.example.fragments.Model.Film;
 
-import java.util.ArrayList;
+
+import com.google.gson.annotations.SerializedName;
 
 public class FavFilmRequest {
-    /*public int page;
-    public ArrayList<Film> results;
-
-    public int getPage() {
-        return page;
-    }
-
-    public ArrayList<Film> getResults() {
-        return results;
-    }
-
-     */
-    //@SerializedName("deviceId")
-    String media_type;
-    int media_id;
-    boolean favourite;
+    private String media_type;
+    private int media_id;
+    private boolean favorite;
 
     public FavFilmRequest(String media_type, int media_id, boolean favourite) {
         this.media_type = media_type;
         this.media_id = media_id;
-        this.favourite = favourite;
+        this.favorite = favourite;
     }
 
     public String getMedia_type() {
@@ -35,11 +23,11 @@ public class FavFilmRequest {
     }
 
     public boolean isFavourite() {
-        return favourite;
+        return favorite;
     }
 
     public void setFavourite(boolean favourite) {
-        this.favourite = favourite;
+        this.favorite = favourite;
     }
 
     public int getMedia_id() {
