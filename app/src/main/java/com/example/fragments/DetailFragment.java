@@ -1,5 +1,6 @@
 package com.example.fragments;
 
+import static com.example.fragments.Config.DefaultConstants.ACCOUNT_ID;
 import static com.example.fragments.Config.DefaultConstants.API_KEY;
 import static com.example.fragments.Config.DefaultConstants.BASE_IMG_URL;
 import static com.example.fragments.Config.DefaultConstants.SESSION_ID;
@@ -23,11 +24,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fragments.Config.ApiCall;
-import com.example.fragments.Config.DefaultConstants;
 import com.example.fragments.Config.GlideApp;
 import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.Film;
-import com.example.fragments.Model.List.List;
+import com.example.fragments.Model.Film.getFavFilmsModel;
+import com.example.fragments.Model.List.Lista;
 import com.example.fragments.Recyclers.AddMovieListsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -66,6 +67,38 @@ public class DetailFragment extends Fragment {
                 .load(BASE_IMG_URL + film.getPoster_path())
                 .centerCrop()
                 .into(imgDetail);
+        //Aquí comprobamos si la película está ya en favoritos
+        //____________
+        //Llamamos a la api
+        ApiCall apiCall = retrofit.create(ApiCall.class);
+        Call<getFavFilmsModel> call = apiCall.getFavoritesMovies(ACCOUNT_ID
+        , API_KEY, SESSION_ID);
+        call.enqueue(new Callback<getFavFilmsModel>() {
+            @Override
+            public void onResponse(Call<getFavFilmsModel> call, Response<getFavFilmsModel> response) {
+                if (response.code()!=200){
+                    Log.i("testApi", "checkConnection  " + response.code());
+
+                }else{
+                    Log.i("testApi", "Change Succesfull");
+                    ArrayList<Film> peliculas = response.body().getResults();
+                    for (Film x: peliculas) {
+                        if (x.getId()==film.getId()){
+                            btnFav.setImageResource(R.drawable.ic_fav_on);
+                            Log.i("testApi","id película favorita "+ x + "el id de la película selecionada "+ film.getId());
+                        }
+                    }
+                }
+                return;
+            }
+
+            @Override
+            public void onFailure(Call<getFavFilmsModel> call, Throwable t) {
+                Log.i("testApi", "getFavFilms ha fallado");
+
+            }
+        });
+        //____________
         //FAVORITOS AQUÍ
         btnFav.setOnClickListener(new View.OnClickListener() {
 
@@ -76,7 +109,7 @@ public class DetailFragment extends Fragment {
                     FavFilmRequest favFilmRequest = new FavFilmRequest("movie", film.getId(), true);
                     ApiCall apiCall = retrofit.create(ApiCall.class);
                     Call<FavFilmRequest> call = apiCall.uptadeFavoriteStatus(
-                            DefaultConstants.ACCOUNT_ID
+                            ACCOUNT_ID
                             ,"application/json;charset=utf-8"
                             ,API_KEY,SESSION_ID
                             , favFilmRequest);
@@ -128,17 +161,19 @@ public class DetailFragment extends Fragment {
         dialog.show();
 
 
-        ArrayList<List> arrayList = new ArrayList<List>();
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
+        ArrayList<Lista> arrayList = new ArrayList<Lista>();
+        /*arrayList.add(new Lista("Comedia", 8));
+        arrayList.add(new Lista("Ciència", 8));
+        arrayList.add(new Lista("Terror", 8));
+        arrayList.add(new Lista("Comedia", 8));
+        arrayList.add(new Lista("Ciència", 8));
+        arrayList.add(new Lista("Terror", 8));
+        arrayList.add(new Lista("Comedia", 8));
+        arrayList.add(new Lista("Ciència", 8));
+        arrayList.add(new Lista("Terror", 8));
 
+
+         */
 
         RecyclerView recyclerView = alertCustomdialog.findViewById(R.id.recyclerList);
         AddMovieListsRecyclerViewAdapter adapter = new AddMovieListsRecyclerViewAdapter(arrayList, getContext());

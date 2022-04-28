@@ -47,7 +47,9 @@
         <entry key="app/src/main/res/layout/fragment_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_movies_list.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/item_list.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_movie.xml" value="0.2814814814814815" />
+        <entry key="app/src/main/res/layout/itemlistmenu.xml" value="0.8501026694045175" />
       </map>
     </option>
   </component>

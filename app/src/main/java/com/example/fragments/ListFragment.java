@@ -10,20 +10,21 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.fragments.Config.ApiCall;
-import com.example.fragments.Model.Film.FavFilmRequest;
-import com.example.fragments.Model.Film.Film;
-import com.example.fragments.Model.Film.searchFilmModel;
+import com.example.fragments.Model.List.ListModel;
+import com.example.fragments.Model.List.Lista;
+import com.example.fragments.Recyclers.ShowListsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,8 +41,32 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        ApiCall apiCall = retrofit.create(ApiCall.class);
+        Call<ListModel> call = apiCall.crearLista("application/json;charset=utf-8",
+                API_KEY,
+                SESSION_ID,
+                new Lista(nombre.getText().toString(), description.getText().toString()));
+        call.enqueue(new Callback<ListModel>() {
+            @Override
+            public void onResponse(Call<ListModel> call, Response<ListModel> response) {
+                if (response.code() != 201){
+                    Log.i("testApi","No ha funcionado "+response.code());
+                }else {
+                    Log.i("testApi","Lista creada");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ListModel> call, Throwable t) {
+                Log.i("testApi","fallo");
+            }
+        });
+
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        ShowListsAdapter showListsAdapter = new ShowListsAdapter();
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setAdapter(showListsAdapter);
         FloatingActionButton btnAdd = view.findViewById(R.id.btnAddList);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -50,45 +75,8 @@ public class ListFragment extends Fragment {
                 showDialog();
             }
         });
-        //____
-
-        ApiCall apiCall = retrofit.create(ApiCall.class);
-        Call<FavFilmRequest> call = apiCall.getFavoritesMovies(API_KEY, SESSION_ID);
-
-        /*call.enqueue(new Callback<FavFilmRequest>(){
-            @Override
-            public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
-                //<<<<<<<<<<<<<<<<<<<ESTOY AQUÍ>>>>>>>>>>>>>>>>>>>>>>
-            }
-
-            @Override
-            public void onFailure(Call<FavFilmRequest> call, Throwable t) {
-
-            }
-
-            @Override
-            public void onResponse(Call<searchFilmModel> call, Response<searchFilmModel> response) {
-                if(response.code()!=200){
-                    Log.i("testApi", "checkConnection");
-                    return;
-                }else {
-                    ArrayList<Film> arraySearch = new ArrayList<>();
-                    arraySearch = response.body().getResults();
-                    callRecycler(arraySearch);
-                }
-            }
-                @Override
-                public void onFailure(Call<searchFilmModel> call, Throwable t) {
-
-                }
-            });
-
-         */
         return view;
     }
-
-        //____
-
 
     public void showDialog(){
         View alertCustomdialog = getLayoutInflater().inflate( R.layout.form_add_list, null);
@@ -103,12 +91,34 @@ public class ListFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         dialog.show();
-
+        EditText nombre = alertCustomdialog.findViewById(R.id.txtList);
+        EditText description = alertCustomdialog.findViewById(R.id.txtDescription);
         Button btnSaveList = alertCustomdialog.findViewById(R.id.btnSaveList);
+
 
         btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ApiCall apiCall = retrofit.create(ApiCall.class);
+                Call<ListModel> call = apiCall.crearLista("application/json;charset=utf-8",
+                        API_KEY,
+                        SESSION_ID,
+                        new Lista(nombre.getText().toString(), description.getText().toString()));
+                call.enqueue(new Callback<ListModel>() {
+                    @Override
+                    public void onResponse(Call<ListModel> call, Response<ListModel> response) {
+                        if (response.code() != 201){
+                            Log.i("testApi","No ha funcionado "+response.code());
+                        }else {
+                            Log.i("testApi","Lista creada");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ListModel> call, Throwable t) {
+                        Log.i("testApi","fallo");
+                    }
+                });
                 dialog.dismiss();
             }
         });
