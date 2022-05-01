@@ -2,6 +2,7 @@ package com.example.fragments.Recyclers;
 
 import static com.example.fragments.Config.DefaultConstants.BASE_IMG_URL;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,19 @@ import com.example.fragments.R;
 import java.util.ArrayList;
 
 public class ShowListsAdapter extends RecyclerView.Adapter<ShowListsAdapter.ViewHolder> {
-    ArrayList<Lista> listas = new ArrayList<>();
-    public ShowListsAdapter(ArrayList<Lista> listas){
+
+    ArrayList<Lista> listas;
+    Context context;
+
+    public ShowListsAdapter(ArrayList<Lista> listas, Context c){
         this.listas = listas;
+        Context context = c;
     }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
-        ShowListsAdapter.ViewHolder holder = new ShowListsAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlistmenu, parent, false);
+        ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
@@ -38,7 +43,7 @@ public class ShowListsAdapter extends RecyclerView.Adapter<ShowListsAdapter.View
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -40,6 +40,9 @@ public interface ApiCall {
             @Body Lista lista
     );
     @GET("account/{account_id}/lists")
-        Call<>
+        Call<ListModel> getListas(
+                @Query("api_key") String api_key,
+                @Query("session_id") String session_id
+    );
 }
 //https://api.themoviedb.org/3/account/alumno21/favorite?api_key=b600e6605b78c1e0846ecd4d57e40ae9&session_id=bf49e752495a327e2f4ad9b555edadacc307da6d

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.20572916666666666" />
         <entry key="..\:/Users/marta/AndroidStudioProjects/BottomNavigation_Fragments/BottomNavigation_Fragments/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/marta/AndroidStudioProjects/BottomNavigation_Fragments/BottomNavigation_Fragments/app/src/main/res/drawable/gb_item_list.xml" value="0.1" />
         <entry key="..\:/Users/marta/AndroidStudioProjects/BottomNavigation_Fragments/BottomNavigation_Fragments/app/src/main/res/drawable/gradient_layout.xml" value="0.26614583333333336" />
@@ -49,7 +50,7 @@
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.2814814814814815" />
         <entry key="app/src/main/res/layout/item_list.xml" value="0.5" />
         <entry key="app/src/main/res/layout/item_movie.xml" value="0.2814814814814815" />
-        <entry key="app/src/main/res/layout/itemlistmenu.xml" value="0.8501026694045175" />
+        <entry key="app/src/main/res/layout/itemlistmenu.xml" value="0.5" />
       </map>
     </option>
   </component>
